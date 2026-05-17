@@ -1,7 +1,7 @@
 // src/App.tsx — SPECTRA 앱 루트: 상태 관리 + 레이아웃
 import { useState, useRef } from 'react'
-import type { VizType, EffectsConfig, ExportConfig } from './types'
-import { DEFAULT_EFFECTS } from './constants'
+import type { VizType, EffectsConfig, ExportConfig, OverlayConfig } from './types'
+import { DEFAULT_EFFECTS, DEFAULT_OVERLAY } from './constants'
 import { useAudioEngine }    from './hooks/useAudioEngine'
 import { useVisualizerLoop } from './hooks/useVisualizerLoop'
 import { useExport }         from './hooks/useExport'
@@ -19,9 +19,12 @@ export default function App() {
   const [vizType,      setVizType]      = useState<VizType>('bars')
   const [colorPreset,  setColorPreset]  = useState(0)
   const [effects,      setEffects]      = useState<EffectsConfig>(DEFAULT_EFFECTS)
+  const [overlay,      setOverlay]      = useState<OverlayConfig>(DEFAULT_OVERLAY)
   const [exportConfig, setExportConfig] = useState<ExportConfig>({
-    resolution: '1920x1080',
-    bitrateM:   8,
+    resolution:    '1920x1080',
+    bitrateM:      8,
+    loopCount:     1,
+    audioBitrateK: 128,
   })
 
   const handleFileLoad = async (file: File) => {
@@ -34,6 +37,7 @@ export default function App() {
     vizType,
     colorPresetIndex: colorPreset,
     effects,
+    overlay,
     exportConfig,
   })
 
@@ -43,6 +47,7 @@ export default function App() {
     vizType,
     colorPreset,
     effects,
+    overlay,
     isPlaying: audio.isPlaying,
   })
 
@@ -53,6 +58,7 @@ export default function App() {
         vizType={vizType}
         colorPreset={colorPreset}
         effects={effects}
+        overlay={overlay}
         exportConfig={exportConfig}
         exportStatus={exportStatus}
         exportProgress={exportProgress}
@@ -60,6 +66,7 @@ export default function App() {
         onVizType={setVizType}
         onColorPreset={setColorPreset}
         onEffects={setEffects}
+        onOverlay={setOverlay}
         onExportConfig={setExportConfig}
         onExport={startExport}
       />
