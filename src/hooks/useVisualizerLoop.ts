@@ -1,12 +1,13 @@
 // src/hooks/useVisualizerLoop.ts — rAF 루프, analyser → 렌더러 연결
 import { useEffect, useRef } from 'react'
-import type { VizType, EffectsConfig } from '../types'
+import type { VizType, EffectsConfig, OverlayConfig } from '../types'
 import { COLOR_PRESETS, FFT_SIZE } from '../constants'
 import { renderBars }      from '../renderers/bars'
 import { renderCircular }  from '../renderers/circular'
 import { renderWave }      from '../renderers/wave'
 import { renderParticles } from '../renderers/particles'
 import { applyEffects }    from '../renderers/effects'
+import { drawBackground, drawLogo, drawStickers } from '../renderers/overlay'
 
 interface Options {
   canvasRef:    React.RefObject<HTMLCanvasElement | null>
@@ -14,14 +15,15 @@ interface Options {
   vizType:      VizType
   colorPreset:  number
   effects:      EffectsConfig
+  overlay:      OverlayConfig
   isPlaying:    boolean
 }
 
 export function useVisualizerLoop({
-  canvasRef, analyserRef, vizType, colorPreset, effects, isPlaying,
+  canvasRef, analyserRef, vizType, colorPreset, effects, overlay, isPlaying,
 }: Options): void {
-  const animRef  = useRef(0)
-  const timeRef  = useRef(0)
+  const animRef = useRef(0)
+  const timeRef = useRef(0)
 
   useEffect(() => {
     const canvas = canvasRef.current
@@ -68,15 +70,7 @@ export function useVisualizerLoop({
         timeData.set(demoTime(t))
       }
 
-      ctx.clearRect(0, 0, W, H)
-      ctx.fillStyle = '#07070f'
-      ctx.fillRect(0, 0, W, H)
-
-      const bg = ctx.createRadialGradient(W * 0.5, H * 0.45, 0, W * 0.5, H * 0.45, W * 0.65)
-      bg.addColorStop(0, colors[0] + '14')
-      bg.addColorStop(1, 'transparent')
-      ctx.fillStyle = bg
-      ctx.fillRect(0, 0, W, H)
+      drawBackground(ctx, overlay, W, H, colors)
 
       const opts = { ctx, freqData, timeData, colors, width: W, height: H, time: t }
 
@@ -91,6 +85,9 @@ export function useVisualizerLoop({
 
       applyEffects(ctx, freqData, effects, W, H, t)
 
+      drawLogo(ctx, overlay.logo, W, H)
+      drawStickers(ctx, overlay.stickers)
+
       animRef.current = requestAnimationFrame(draw)
     }
 
@@ -99,5 +96,5 @@ export function useVisualizerLoop({
       cancelAnimationFrame(animRef.current)
       ro.disconnect()
     }
-  }, [canvasRef, analyserRef, vizType, colorPreset, effects, isPlaying])
+  }, [canvasRef, analyserRef, vizType, colorPreset, effects, overlay, isPlaying])
 }
