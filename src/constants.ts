@@ -1,5 +1,5 @@
 // src/constants.ts — 앱 전역 상수
-import type { ColorPreset, VizType, ExportResolution, BgType, OverlayConfig } from './types'
+import type { ColorPreset, VizType, ExportResolution, OverlayConfig } from './types'
 
 export const COLOR_PRESETS: ColorPreset[] = [
   { name: 'NEBULA',  colors: ['#7C5CFC', '#00D4FF', '#FF006E'] },
