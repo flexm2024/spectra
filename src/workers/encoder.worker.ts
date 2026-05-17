@@ -1,7 +1,7 @@
 // src/workers/encoder.worker.ts — WebCodecs + mp4-muxer 오프라인 인코딩
 import { Muxer, ArrayBufferTarget } from 'mp4-muxer'
 import type { WorkerStartMessage, WorkerOutMessage } from '../types'
-import { COLOR_PRESETS, BAND_COUNT } from '../constants'
+import { COLOR_PRESETS } from '../constants'
 import { renderBars }      from '../renderers/bars'
 import { renderCircular }  from '../renderers/circular'
 import { renderWave }      from '../renderers/wave'
@@ -143,7 +143,7 @@ self.onmessage = async (e: MessageEvent<WorkerStartMessage>) => {
 
     const mp4Buffer = (muxer.target as ArrayBufferTarget).buffer
     const done: WorkerOutMessage = { type: 'done', buffer: mp4Buffer }
-    self.postMessage(done, [mp4Buffer])
+    self.postMessage(done, { transfer: [mp4Buffer] })
 
   } catch (err) {
     const errMsg: WorkerOutMessage = { type: 'error', error: String(err) }
