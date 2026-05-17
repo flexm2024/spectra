@@ -66,3 +66,14 @@ export type WorkerOutMessage =
   | WorkerProgressMessage
   | WorkerDoneMessage
   | WorkerErrorMessage
+
+export type BgType = 'none' | 'image' | 'gradient' | 'scene'
+
+export interface OverlayConfig {
+  bgType:       BgType
+  bgImage:      ImageBitmap | null
+  bgGradient:   [string, string]
+  bgSceneIndex: number
+  logo:         ImageBitmap | null
+  stickers:     ImageBitmap[]
+}
