@@ -16,11 +16,24 @@ export interface EffectsConfig {
 export type ExportResolution = '3840x2160' | '1920x1080' | '1280x720'
 
 export interface ExportConfig {
-  resolution: ExportResolution
-  bitrateM:   number
+  resolution:    ExportResolution
+  bitrateM:      number
+  loopCount:     1 | 2 | 3
+  audioBitrateK: 96 | 128 | 192
 }
 
 export type ExportStatus = 'idle' | 'encoding' | 'done' | 'error'
+
+export type BgType = 'none' | 'image' | 'gradient' | 'scene'
+
+export interface OverlayConfig {
+  bgType:       BgType
+  bgImage:      ImageBitmap | null
+  bgGradient:   [string, string]
+  bgSceneIndex: number
+  logo:         ImageBitmap | null
+  stickers:     ImageBitmap[]
+}
 
 export interface RendererOptions {
   ctx:      CanvasRenderingContext2D
@@ -45,6 +58,14 @@ export interface WorkerStartMessage {
   height:            number
   bitrateM:          number
   fps:               number
+  loopCount:         number
+  audioBitrateK:     number
+  bgType:            BgType
+  bgImage:           ImageBitmap | null
+  bgGradient:        [string, string]
+  bgSceneIndex:      number
+  logo:              ImageBitmap | null
+  stickers:          ImageBitmap[]
 }
 
 export interface WorkerProgressMessage {
