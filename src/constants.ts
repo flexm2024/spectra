@@ -56,11 +56,3 @@ export const DEFAULT_OVERLAY: OverlayConfig = {
 export const FFT_SIZE = 2048
 export const BAND_COUNT = 72
 export const FPS = 30
-
-export const BG_SCENES: { colors: [string, string] }[] = [
-  { colors: ['#07070f', '#1a1a2e'] },
-  { colors: ['#0f0f1e', '#2a1a3a'] },
-  { colors: ['#1a0f2e', '#3a1a4a'] },
-  { colors: ['#1a1a2e', '#3a3a5e'] },
-  { colors: ['#0a0a14', '#1a0a2a'] },
-]
