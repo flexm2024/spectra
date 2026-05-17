@@ -28,6 +28,7 @@ export function hexToRgb(hex: string): [number, number, number] {
 }
 
 export function bassEnergy(bands: Float32Array): number {
+  if (bands.length === 0) return 0
   const end = Math.max(1, Math.floor(bands.length * 0.08))
   let sum = 0
   for (let i = 0; i < end; i++) sum += bands[i]

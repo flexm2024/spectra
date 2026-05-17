@@ -5,6 +5,7 @@ import {
   averageBands,
   hexToRgb,
   bassEnergy,
+  makeFreqBands,
 } from '../../renderers/utils'
 
 describe('normalizeFreqData', () => {
@@ -61,5 +62,14 @@ describe('bassEnergy', () => {
 
   it('모두 0이면 0을 반환한다', () => {
     expect(bassEnergy(new Float32Array(72))).toBe(0)
+  })
+})
+
+describe('makeFreqBands', () => {
+  it('raw Uint8Array를 bandCount 길이 Float32Array로 변환한다', () => {
+    const raw = new Uint8Array(256).fill(128)
+    const bands = makeFreqBands(raw, 72)
+    expect(bands).toHaveLength(72)
+    bands.forEach(b => expect(b).toBeCloseTo(128 / 255))
   })
 })
