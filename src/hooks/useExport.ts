@@ -1,6 +1,6 @@
 // src/hooks/useExport.ts — Worker 통신 + Blob 다운로드
 import { useRef, useState, useCallback } from 'react'
-import type { VizType, EffectsConfig, ExportConfig, ExportStatus, WorkerOutMessage, WorkerStartMessage } from '../types'
+import type { VizType, EffectsConfig, ExportConfig, ExportStatus, OverlayConfig, WorkerOutMessage, WorkerStartMessage } from '../types'
 import { RESOLUTIONS, FPS } from '../constants'
 
 interface Options {
@@ -8,6 +8,7 @@ interface Options {
   vizType:          VizType
   colorPresetIndex: number
   effects:          EffectsConfig
+  overlay:          OverlayConfig
   exportConfig:     ExportConfig
 }
 
@@ -18,13 +19,13 @@ export interface ExportAPI {
 }
 
 export function useExport({
-  audioBuffer, vizType, colorPresetIndex, effects, exportConfig,
+  audioBuffer, vizType, colorPresetIndex, effects, overlay, exportConfig,
 }: Options): ExportAPI {
   const workerRef = useRef<Worker | null>(null)
   const [status,   setStatus]   = useState<ExportStatus>('idle')
   const [progress, setProgress] = useState(0)
 
-  const startExport = useCallback(() => {
+  const startExport = useCallback(async () => {
     if (!audioBuffer || status === 'encoding') return
 
     if (typeof VideoEncoder === 'undefined') {
@@ -40,6 +41,11 @@ export function useExport({
       const dst = new Float32Array(rawPCM, ch * sampleLength * 4, sampleLength)
       dst.set(audioBuffer.getChannelData(ch))
     }
+
+    // ImageBitmap은 transfer 시 main thread에서 detach됨 → clone 후 전송
+    const bgImage  = overlay.bgImage  ? await createImageBitmap(overlay.bgImage)  : null
+    const logo     = overlay.logo     ? await createImageBitmap(overlay.logo)     : null
+    const stickers = await Promise.all(overlay.stickers.map(s => createImageBitmap(s)))
 
     workerRef.current?.terminate()
     workerRef.current = new Worker(
@@ -67,6 +73,11 @@ export function useExport({
       }
     }
 
+    const transferables: Transferable[] = [rawPCM]
+    if (bgImage)  transferables.push(bgImage)
+    if (logo)     transferables.push(logo)
+    stickers.forEach(s => transferables.push(s))
+
     const msg: WorkerStartMessage = {
       type:             'start',
       audioBuffer:      rawPCM,
@@ -80,11 +91,19 @@ export function useExport({
       height:           res.h,
       bitrateM:         exportConfig.bitrateM,
       fps:              FPS,
+      loopCount:        exportConfig.loopCount,
+      audioBitrateK:    exportConfig.audioBitrateK,
+      bgType:           overlay.bgType,
+      bgImage,
+      bgGradient:       overlay.bgGradient,
+      bgSceneIndex:     overlay.bgSceneIndex,
+      logo,
+      stickers,
     }
-    workerRef.current.postMessage(msg, [rawPCM])
+    workerRef.current.postMessage(msg, transferables)
     setStatus('encoding')
     setProgress(0)
-  }, [audioBuffer, status, exportConfig, vizType, colorPresetIndex, effects])
+  }, [audioBuffer, status, exportConfig, vizType, colorPresetIndex, effects, overlay])
 
   return { status, progress, startExport }
 }
