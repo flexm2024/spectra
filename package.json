@@ -6,9 +6,13 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:ui": "vitest --ui"
   },
   "dependencies": {
+    "mp4-muxer": "^5.2.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
@@ -16,7 +20,10 @@
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^4.3.4",
+    "@vitest/ui": "^4.1.6",
+    "happy-dom": "^20.9.0",
     "typescript": "~5.6.2",
-    "vite": "^6.0.5"
+    "vite": "^6.0.5",
+    "vitest": "^4.1.6"
   }
 }
