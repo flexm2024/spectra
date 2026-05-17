@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(Test-Path \"C:\\\\claudecode\\\\port_app\"; \\(Get-Item \"C:\\\\claudecode\\\\port_app\"\\).GetFileSystemInfos\\(\\) | Select-Object Name, FullName)",
+      "PowerShell(cmd /c \"dir C:\\\\claudecode\\\\portfolio /a\")",
+      "PowerShell(npm create *)",
+      "PowerShell(Test-NetConnection *)",
+      "PowerShell(Start-Sleep -Seconds 3; Invoke-WebRequest -Uri \"http://localhost:5173\" -UseBasicParsing -TimeoutSec 5 | Select-Object StatusCode)",
+      "PowerShell(netstat *)",
+      "PowerShell(Start-Process \"http://localhost:5173\")",
+      "PowerShell(Add-Type -AssemblyName System.Windows.Forms; Add-Type -AssemblyName System.Drawing; Start-Sleep -Milliseconds 500; $screen = [System.Windows.Forms.Screen]::PrimaryScreen.Bounds; $bmp = New-Object System.Drawing.Bitmap\\($screen.Width, $screen.Height\\); $g = [System.Drawing.Graphics]::FromImage\\($bmp\\); $g.CopyFromScreen\\($screen.Location, [System.Drawing.Point]::Empty, $screen.Size\\); $bmp.Save\\(\"C:\\\\Users\\\\wavef\\\\AppData\\\\Local\\\\Temp\\\\preview.png\"\\); $g.Dispose\\(\\); $bmp.Dispose\\(\\); Write-Host \"done\")",
+      "PowerShell(Start-Process \"http://localhost:5173\"; Start-Sleep -Seconds 2; Add-Type -AssemblyName System.Windows.Forms; Add-Type -AssemblyName System.Drawing; $screen = [System.Windows.Forms.Screen]::PrimaryScreen.Bounds; $bmp = New-Object System.Drawing.Bitmap\\($screen.Width, $screen.Height\\); $g = [System.Drawing.Graphics]::FromImage\\($bmp\\); $g.CopyFromScreen\\($screen.Location, [System.Drawing.Point]::Empty, $screen.Size\\); $bmp.Save\\(\"C:\\\\Users\\\\wavef\\\\AppData\\\\Local\\\\Temp\\\\preview.png\"\\); $g.Dispose\\(\\); $bmp.Dispose\\(\\); Write-Host \"done\")",
+      "PowerShell(Start-Process \"http://localhost:5174\"; Start-Sleep -Seconds 2; Add-Type -AssemblyName System.Windows.Forms; Add-Type -AssemblyName System.Drawing; $screen = [System.Windows.Forms.Screen]::PrimaryScreen.Bounds; $bmp = New-Object System.Drawing.Bitmap\\($screen.Width, $screen.Height\\); $g = [System.Drawing.Graphics]::FromImage\\($bmp\\); $g.CopyFromScreen\\($screen.Location, [System.Drawing.Point]::Empty, $screen.Size\\); $bmp.Save\\(\"C:\\\\Users\\\\wavef\\\\AppData\\\\Local\\\\Temp\\\\preview2.png\"\\); $g.Dispose\\(\\); $bmp.Dispose\\(\\); Write-Host \"done\")",
+      "PowerShell(Start-Process \"http://localhost:3030\")",
+      "PowerShell([System.Environment]::GetFolderPath\\('Desktop'\\))"
+    ]
+  }
+}
