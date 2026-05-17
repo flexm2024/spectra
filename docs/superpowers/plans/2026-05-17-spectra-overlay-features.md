@@ -199,7 +199,7 @@ export const FPS = 30
 - [ ] **Step 3: 빌드 타입 오류 확인**
 
 ```bash
-cd C:\claudecode\port_app && npx tsc --noEmit
+cd C:\claudecode\port_app && npx tsc -p tsconfig.app.json --noEmit
 ```
 
 오류 없으면 다음 단계. `bitrateM` 관련 타입 오류가 있으면 `ExportConfig.bitrateM`이 `number`인지 확인.
@@ -588,7 +588,7 @@ export function BackgroundPanel({ overlay, onChange }: Props) {
 - [ ] **Step 2: 빌드 오류 확인**
 
 ```bash
-npx tsc --noEmit
+npx tsc -p tsconfig.app.json --noEmit
 ```
 
 - [ ] **Step 3: 커밋**
@@ -697,7 +697,7 @@ export function LogoStickerPanel({ overlay, onChange }: Props) {
 - [ ] **Step 2: 빌드 오류 확인**
 
 ```bash
-npx tsc --noEmit
+npx tsc -p tsconfig.app.json --noEmit
 ```
 
 - [ ] **Step 3: 커밋**
@@ -822,7 +822,7 @@ export function ExportPanel({ config, status, progress, hasFile, onChange, onExp
 - [ ] **Step 2: 빌드 오류 확인**
 
 ```bash
-npx tsc --noEmit
+npx tsc -p tsconfig.app.json --noEmit
 ```
 
 - [ ] **Step 3: 커밋**
@@ -993,7 +993,7 @@ export default function App() {
 - [ ] **Step 3: 빌드 오류 확인**
 
 ```bash
-npx tsc --noEmit
+npx tsc -p tsconfig.app.json --noEmit
 ```
 
 - [ ] **Step 4: 커밋**
@@ -1120,7 +1120,7 @@ export function useVisualizerLoop({
 - [ ] **Step 2: 빌드 + 테스트 확인**
 
 ```bash
-npx tsc --noEmit && npx vitest run
+npx tsc -p tsconfig.app.json --noEmit && npx vitest run
 ```
 
 Expected: 타입 오류 없음, 18 tests passed
@@ -1262,7 +1262,7 @@ export function useExport({
 - [ ] **Step 3: 빌드 + 테스트 확인**
 
 ```bash
-npx tsc --noEmit && npx vitest run
+npx tsc -p tsconfig.app.json --noEmit && npx vitest run
 ```
 
 - [ ] **Step 4: 커밋**
@@ -1450,7 +1450,7 @@ self.onmessage = async (e: MessageEvent<WorkerStartMessage>) => {
 - [ ] **Step 2: 빌드 + 전체 테스트 확인**
 
 ```bash
-npx tsc --noEmit && npx vitest run
+npx tsc -p tsconfig.app.json --noEmit && npx vitest run
 ```
 
 Expected: 타입 오류 없음, 18 tests passed
