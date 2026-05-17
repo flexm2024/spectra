@@ -579,3 +579,162 @@ html, body, #root {
   margin-top: 2px;
   margin-bottom: 6px;
 }
+
+/* 탭 버튼 */
+.tab-row {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+.tab-btn {
+  flex: 1;
+  padding: 4px 6px;
+  font-size: 11px;
+  background: #1a1a2e;
+  border: 1px solid #333;
+  border-radius: 4px;
+  color: #aaa;
+  cursor: pointer;
+}
+.tab-btn.active {
+  background: #7C5CFC;
+  border-color: #7C5CFC;
+  color: #fff;
+}
+
+/* 드롭존 small variant */
+.dropzone.small {
+  padding: 10px;
+  min-height: 40px;
+  font-size: 12px;
+}
+
+/* 그라디언트 피커 */
+.gradient-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.gradient-row input[type="color"] {
+  width: 36px;
+  height: 28px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* 씬 그리드 */
+.scene-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin-top: 4px;
+}
+.scene-card {
+  height: 40px;
+  border-radius: 6px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-end;
+  padding: 4px;
+}
+.scene-card.active {
+  border-color: #7C5CFC;
+}
+.scene-name {
+  font-size: 9px;
+  color: rgba(255,255,255,0.8);
+  text-transform: uppercase;
+}
+
+/* 로고/스티커 */
+.overlay-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.upload-btn, .remove-btn {
+  padding: 3px 10px;
+  font-size: 11px;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid #555;
+  background: #1a1a2e;
+  color: #ccc;
+}
+.remove-btn {
+  border-color: #ff4466;
+  color: #ff4466;
+}
+.loaded-badge {
+  font-size: 10px;
+  color: #00FFB9;
+}
+.sticker-slots {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+.sticker-slot {
+  width: 36px;
+  height: 36px;
+  border: 1px dashed #444;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.sticker-add, .sticker-remove {
+  width: 100%;
+  height: 100%;
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+.sticker-remove {
+  color: #ff4466;
+  font-size: 12px;
+}
+.sticker-add:hover { color: #7C5CFC; }
+
+/* 프로파일 버튼 그룹 */
+.btn-group {
+  display: flex;
+  gap: 4px;
+  margin-top: 4px;
+}
+.profile-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 5px 4px;
+  font-size: 11px;
+  background: #1a1a2e;
+  border: 1px solid #333;
+  border-radius: 4px;
+  color: #aaa;
+  cursor: pointer;
+  line-height: 1.2;
+}
+.profile-btn.active {
+  background: #7C5CFC;
+  border-color: #7C5CFC;
+  color: #fff;
+}
+.profile-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.profile-sub {
+  font-size: 9px;
+  opacity: 0.7;
+}
